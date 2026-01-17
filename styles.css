@@ -1,0 +1,367 @@
+
+
+
+@font-face {
+    font-family: 'FT88-Regular';
+    src: url(FT88-Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'FT88-Regular';
+}
+
+#container {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    min-height: 100vh;
+    margin: 0 0;
+    position: fixed;
+        inset: 0;
+
+    
+
+    background-color: rgb(235, 235, 235);
+    background-image: url("windows.jpg");
+    background-size: cover;
+}
+
+#workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#top-bar,
+#bottom-bar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    background: lightgray;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+}
+
+#preview {
+    position: relative;
+    width: 1100px;
+    height: 550px;
+
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+#text-layer {
+    position: absolute;
+    inset: 0;
+
+    font-family: 'Times New Roman', serif;
+    font-size: 200px;
+    font-variation-settings: "wght" 400;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+}
+
+#object-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none; /* ← MUST be auto */
+}
+
+.draggable-svg {
+    position: absolute;
+    width: 120px;
+    cursor: grab;
+    display: block;
+    max-width: none;
+    pointer-events: auto;
+    transform-origin: center center;
+}
+.draggable-svg:active {
+    cursor: grabbing;
+}
+
+
+.draggable-svg.selected {
+    outline: 2px dashed black;
+    outline-offset: 6px;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+#svg-controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#svg-controls label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+}
+
+#controls label,
+#svg-controls label {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    font-size: 10px;
+}
+
+input[type="range"] {
+    appearance: none;
+    background: transparent;
+    width: 100px;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: black;
+    height: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    margin-top: -8px;
+    width: 14px;
+    height: 14px;
+    background: black;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-track {
+    background: black;
+    height: 4px;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: black;
+    border-radius: 50%;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 8px;
+    background: white;
+    font-family: 'FT88-Regular';
+}
+
+button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(2px);
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    height: calc(
+        60px +     
+        550px +    
+        60px    
+    );
+    gap: 20px;
+}
+
+
+#svg-panel {
+    flex: 1; /* take remaining space between CLEAR and EXPORT */
+    display: flex;
+    flex-direction: column;
+
+    width: 260px;
+    padding: 10px;
+
+    background: lightgray;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+
+    overflow: hidden; /* IMPORTANT */
+}
+
+
+#svg-panel label {
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#svg-list {
+    flex: 1;
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    gap: 3px;
+    place-items: center;
+
+    padding-right: 4px; /* space for scrollbar */
+}
+
+
+.svg-thumb {
+    width: 30px;
+    height: 30px;
+
+    object-fit: contain;
+    display: block;
+    cursor: pointer;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.svg-thumb:hover {
+    animation: wiggle 1s;
+}
+
+/* SVG COLOR TOGGLE*/
+
+img.svg-white {
+    filter: invert(1);
+}
+
+
+#category-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* THEME TOGGLE*/
+
+#control-theme {
+    font-family: 'FT88-Regular';
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+
+    background: white;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+/*  THEME OVERRIDES*/
+
+body.theme-2 #container {
+    background-color: rgb(255, 98, 174);
+    background-image: url(sparkle.gif);
+    background-size: cover;
+}
+
+body.theme-2 #svg-panel,
+body.theme-2 #top-bar,
+body.theme-2 #bottom-bar {
+    background: rgb(255, 98, 174);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+}
+
+
+
+body.theme-3 #container {
+    background-color: rgb(15, 205, 208);
+    background-image: url(underwater2.webp);
+    background-size: contain;
+}
+
+body.theme-3 #svg-panel,
+body.theme-3 #top-bar,
+body.theme-3 #bottom-bar {
+    background: rgb(15, 205, 208);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+}
+
+body.theme-4 #container {
+    background-color: rgb(34, 139, 34);
+    background-image: url(sparkle.gif);
+    background-size: cover;
+}
+body.theme-4 #svg-panel,
+body.theme-4 #top-bar,
+body.theme-4 #bottom-bar {
+    background: rgb(34, 139, 34);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+}
+
+
+
+
+
+body.theme-5 #container {
+    background-color: rgb(79, 7, 92);
+    background-image: url(universe.jpeg);
+    background-size: cover;
+}
+
+body.theme-5 #svg-panel,
+body.theme-5 #top-bar,
+body.theme-5 #bottom-bar {
+    background: rgb(92, 64, 124);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px rgb(0, 0, 0);
+}
+
+
+body.theme-6 #container {
+    background-color: rgb(255, 165, 0);
+    background-image: url(sparkle.gif);
+    background-size: cover;
+}
+
+body.theme-6 #svg-panel,
+body.theme-6 #top-bar,
+body.theme-6 #bottom-bar {
+    background: rgb(255, 165, 0);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        inset 0 0 20px white;
+}   
