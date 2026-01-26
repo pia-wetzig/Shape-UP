@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SHAPE UP: MIAMI HEAT</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/ftt3ibw.css">
     <script src="http://unpkg.com/tone"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -19,17 +20,17 @@
         <!-- TOP BAR -->
         <div id="top-bar">
             <div id="theme">
-                <label>
-                    <select id="control-theme">
-                        <option value="theme-1">BASIC.theme</option>
-                        <option value="theme-2">PINK.theme</option>
-                        <option value="theme-3">UNDERWATER.theme</option>
-                        <option value="theme-5">GALAXY.theme</option>
-                        <option value="theme-6">TROPICAL.theme</option>
-                        
-                    </select>
-                </label>
+             
             </div>
+            <div id="backgrounds">
+                <button data-theme="theme-1"></button>
+                <button data-theme="theme-2"></button>
+                <button data-theme="theme-3"></button>
+                <button data-theme="theme-4"></button>
+                <button data-theme="theme-5"></button>
+                <button data-theme="theme-6"></button>
+            </div>
+
         </div>
 
         <!-- PREVIEW -->
@@ -48,7 +49,7 @@
                         type="range"
                         id="control-font-size"
                         min="50"
-                        max="300"
+                        max="800"
                         value="200"
                     />
                 </label>
@@ -64,7 +65,7 @@
                             type="range"
                             id="control-scale"
                             min="10"
-                            max="500"
+                            max="800"
                             value="100"
                         />
                     </label>
@@ -105,7 +106,9 @@
             </div>
         </aside>
 
-        <button id="export-pdf">EXPORT</button>
+        <button id="export-pdf">
+            <text>EXPORT</text>
+        </button>
 
     </aside>
 

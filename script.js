@@ -2,6 +2,11 @@ const textLayer = document.getElementById("text-layer");
 const controlFontSize = document.getElementById("control-font-size");
 const controlWght = document.getElementById("control-wght");
 
+document.getElementById("preview").addEventListener("click", () => {
+    textLayer.classList.remove("is-editing");
+});
+
+
 controlFontSize.oninput = (event) => {
     textLayer.style.fontSize = event.target.value + "px";
 };
@@ -15,8 +20,8 @@ if (toggleFontBtn && textLayer) {
         isSerif = !isSerif;
 
         textLayer.style.fontFamily = isSerif
-            ? '"Times New Roman", Times, serif'
-            : 'Arial, Helvetica, sans-serif';
+            ? '"big-caslon-fb", serif'
+            : '"aktiv-grotesk", sans-serif';
     });
 }
 
@@ -44,12 +49,26 @@ document.getElementById("export-pdf").addEventListener("click", async () => {
     pdf.save("lettering_export.pdf");
 });
 
-const themeSelect = document.getElementById("control-theme");
 const body = document.body;
+const themeButtons = document.querySelectorAll("#backgrounds button");
 
-// Initiales Theme setzen (falls HTML was anderes vorgibt)
-body.className = themeSelect.value;
+themeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const theme = btn.dataset.theme;
 
-themeSelect.addEventListener("change", () => {
-    body.className = themeSelect.value;
+        body.classList.remove(
+            "theme-1",
+            "theme-2",
+            "theme-3",
+            "theme-4",
+            "theme-5",
+            "theme-6"
+        );
+
+        body.classList.add(theme);
+
+        // Optional: visual active state
+        themeButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+    });
 });
