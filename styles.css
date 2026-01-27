@@ -373,7 +373,7 @@ body.theme-4 #container {
 body.theme-4 #svg-panel,
 body.theme-4 #top-bar,
 body.theme-4 #bottom-bar {
-    background: hotpink;
+    background-image: linear-gradient(to top left, hotpink, mediumvioletred);
     border-color: hotpink;
     border: 0.08vw solid black;
 }
@@ -385,16 +385,18 @@ body.theme-4 #preview{
 }
 
 body.theme-5 #container {
-    background-image: url(universe.jpeg);
+   /* background-image: url(universe.jpeg);*/
+    background-image: radial-gradient(steelblue, black);
     background-size: cover;
 }
 body.theme-5 #svg-panel,
 body.theme-5 #top-bar,
 body.theme-5 #bottom-bar {
-    background: darkslateblue;
-    border-color: darkslateblue;
+    background-image: linear-gradient(to bottom left, black, steelblue);
+    border-color: rgb(0, 0, 0);
     border-radius: 1vw;
     border: 0.08vw solid black;
+    
 }
 body.theme-5 button,
 body.theme-5 #preview{
@@ -402,4 +404,7 @@ body.theme-5 #preview{
     border-color: white;
     border-radius: 1vw;
     border: 0.08vw solid black;
+}
+body.theme-5 #svg-list {
+    filter: invert();
 }

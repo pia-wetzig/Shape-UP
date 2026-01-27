@@ -27,27 +27,23 @@ if (toggleFontBtn && textLayer) {
 
 
 // PDF Export
-document.getElementById("export-pdf").addEventListener("click", async () => {
+document.getElementById("export-png").addEventListener("click", async () => {
     const preview = document.getElementById("preview");
 
-    // Screenshot des Preview Sections
     const canvas = await html2canvas(preview, {
-        backgroundColor: "#ffffff", // Weißer Hintergrund
-        scale: 2                    // höhere Qualität
+        backgroundColor: "#ffffff",
+        scale: 2,          // higher = sharper image
+        useCORS: true
     });
 
     const imgData = canvas.toDataURL("image/png");
 
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-        orientation: "horizontal",
-        unit: "px",
-        format: [preview.offsetWidth, preview.offsetHeight]
-    });
-
-    pdf.addImage(imgData, "PNG", 0, 0, preview.offsetWidth, preview.offsetHeight);
-    pdf.save("lettering_export.pdf");
+    const link = document.createElement("a");
+    link.href = imgData;
+    link.download = "lettering_export.png";
+    link.click();
 });
+
 
 const body = document.body;
 const themeButtons = document.querySelectorAll("#backgrounds button");
